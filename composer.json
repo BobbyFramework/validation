@@ -1,0 +1,20 @@
+{
+  "name": "bobby-framework/validation",
+  "description" : "A PHP Utils ",
+  "authors": [
+    {
+      "name": "nicolas wallerand",
+      "email" : "n.wallerand@gmail.com",
+      "homepage": "http://www.nicolas-wallerand.fr",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "BobbyFramework\\Validation\\": "src/"
+    }
+  },
+  "require":{
+    "php": ">=5.3.0"
+  }
+}
