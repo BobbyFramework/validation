@@ -1,6 +1,6 @@
 {
   "name": "bobby-framework/validation",
-  "description" : "A PHP Utils ",
+  "description" : "A PHP Validation compoment ",
   "authors": [
     {
       "name": "nicolas wallerand",
