@@ -2,6 +2,7 @@
 namespace BobbyFramework\Validation\Validator;
 
 use BobbyFramework\Validation\Validator;
+use BobbyFramework\Validation\Validation;
 
 class MaxLengthValidator extends Validator
 {
@@ -14,7 +15,7 @@ class MaxLengthValidator extends Validator
         $this->setMaxLength($maxLength);
     }
 
-    public function isValid($value)
+    public function isValid(Validation $validation,$value)
     {
         return strlen($value) <= $this->_maxLength;
     }
