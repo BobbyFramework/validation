@@ -2,6 +2,7 @@
 namespace BobbyFramework\Validation\Validator;
 
 use BobbyFramework\Validation\Validator;
+use BobbyFramework\Validation\Validation;
 
 class MinLengthValidator extends Validator
 {
@@ -14,7 +15,7 @@ class MinLengthValidator extends Validator
         $this->setMinLength($minLength);
     }
 
-    public function isValid($value)
+    public function isValid(Validation $validation, $value)
     {
         return strlen($value) <= $this->_minLength;
     }
