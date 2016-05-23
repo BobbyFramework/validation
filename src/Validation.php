@@ -22,7 +22,7 @@ class Validation
     public function isValid()
     {
         foreach ($this->_validators as $field => $validator) {
-            if (false === $validator->isValid(this,$field)) {
+            if (false === $validator->isValid($this,$field)) {
                 return false;
             }
         }
