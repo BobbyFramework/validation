@@ -1,8 +1,6 @@
 <?php
 namespace BobbyFramework\Validation;
 class MessagesGroup {
+  protected _messages;
   
-   public function setMessage($message) {}
-   
-   public function getMessage() {}
 }
