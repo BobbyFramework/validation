@@ -21,12 +21,16 @@ class Validation
 
     public function isValid()
     {
+        $return =true;
         foreach ($this->_validators as $field => $validator) {
             if (false === $validator->isValid($this,$field)) {
-                return false;
+                
+                
+                
+                $return = false;
             }
         }
 
-        return true;
+        return $return ;
     }
 }
