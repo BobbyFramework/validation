@@ -8,6 +8,7 @@ class IdenticalValidator extends Validator {
 
     public function isValid(Validation $validation,$value)
     {
+        // TODO: Implement isValid() method.
         return false;
     }
 }

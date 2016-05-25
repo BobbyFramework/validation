@@ -1,7 +1,22 @@
 <?php
 namespace BobbyFramework\Validation;
-class Message {
-   public function setMessage($message) {}
-   
-   public function getMessage() {}
+/**
+ * Class Message
+ * @package BobbyFramework\Validation
+ */
+class Message
+{
+    /**
+     * @param $message
+     */
+    public function setMessage($message)
+    {
+    }
+
+    /**
+     * 
+     */
+    public function getMessage()
+    {
+    }
 }
