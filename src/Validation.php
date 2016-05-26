@@ -45,11 +45,11 @@ class Validation
      * @param $field
      * @param array $validators
      */
-    public function setValidators($field, array $validators)
+    public function setValidators($field, $validators)
     {
         foreach ($validators as $validator) {
-            if ($validator instanceof Validator && in_array($field, $this->_validators)) {
-                $this->_validators[$field] = $validator;
+            if ($validator instanceof Validator) {
+                $this->_validators[$field][] = $validator;
             }
         }
     }
@@ -62,10 +62,12 @@ class Validation
         $this->_values = &$data;
 
         $return = true;
-        foreach ($this->_validators as $field => $validator) {
-            if (false === $validator->isValid($this, $field)) {
-                $return = false;
-            }
+        foreach ($this->_validators as $fields => $field) {
+             foreach ($field as $validator) {
+                if (false === $validator->isValid($this, $field)) {
+                    $return = false;
+                }
+             }
         }
 
         return $return;
