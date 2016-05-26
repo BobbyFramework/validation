@@ -6,7 +6,7 @@ use BobbyFramework\Validation\Validation;
 
 class AlphaValidator extends Validator
 {
-    public function isValid(Validation $validation, $value)
+    public function isValid(Validation $validation ,$value)
     {
         // TODO: Implement isValid() method.
         return false;

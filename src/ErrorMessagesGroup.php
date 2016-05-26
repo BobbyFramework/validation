@@ -1,10 +1,10 @@
 <?php
 namespace BobbyFramework\Validation;
 /**
- * Class MessagesGroup
+ * Class ErrorMessagesGroup
  * @package BobbyFramework\Validation
  */
-class MessagesGroup
+class ErrorMessagesGroup
 {
     /**
      * @var $_messages
@@ -12,9 +12,9 @@ class MessagesGroup
     protected $_messages;
 
     /**
-     * @param Message $message
+     * @param ErrorMessage $message
      */
-    public function appendMessage(Message $message)
+    public function appendMessage(ErrorMessage $message)
     {
         $this->_messages[] = $message;
     }
