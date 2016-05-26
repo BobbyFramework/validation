@@ -4,11 +4,11 @@ namespace BobbyFramework\Validation\Validator;
 use BobbyFramework\Validation\Validator;
 use BobbyFramework\Validation\Validation;
 
-class IdenticalValidator extends Validator {
+class Required extends Validator {
 
     public function isValid(Validation $validation,$value)
     {
-        // TODO: Implement isValid() method.
-        return false;
+        return $value != '';
     }
 }
+

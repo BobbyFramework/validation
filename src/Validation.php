@@ -1,5 +1,7 @@
 <?php
 namespace BobbyFramework\Validation;
+use BobbyFramework\Validation\Messages\Error as MessagesError;
+use BobbyFramework\Validation\Messages\ErrorCollection as MessagesErrorCollection;
 
 /**
  * Class Validation
@@ -8,29 +10,30 @@ namespace BobbyFramework\Validation;
 class Validation
 {
     /**
-     * @var null
+     * @var array
      */
-    private $_validators = null;
+    private $_validators = [];
     /**
-     * @var ErrorMessagesGroup|null
+     * @var MessagesErrorCollection|null
      */
     private $_messagesGroup = null;
-
     /**
      * @var array
      */
-    protected $_values = array();
+    protected $_values = [];
+    /**
+     * @var ValidationErrorMessages|null
+     */
+    protected $_ValidationErrorMessage = null;
 
     /**
-     * @var null
+     * Validation constructor.
+     * @param ValidationErrorMessages|null $errorMessages
      */
-    protected $_defaultMessages = null;
-
-
-    public function __construct($errorMessages = array())
+    public function __construct(ValidationErrorMessages $errorMessages = null)
     {
-        $this->setDefaultErrorMessages($errorMessages);
-        $this->_messagesGroup = new ErrorMessagesGroup();
+        $this->_ValidationErrorMessage = $errorMessages ?: new ValidationErrorMessages();
+        $this->_messagesGroup = new MessagesErrorCollection();
     }
 
     /**
@@ -55,77 +58,57 @@ class Validation
     }
 
     /**
+     * @param $data
      * @return bool
      */
     public function isValid($data)
     {
-        $this->_values = &$data;
+        /**
+         * @var Validator $validator
+         */
+        $this->_values = $data;
 
         $return = true;
         foreach ($this->_validators as $fields => $field) {
-             foreach ($field as $validator) {
-                if (false === $validator->isValid($this, $field)) {
+            foreach ($field as $validator) {
+                if (false === $validator->isValid($this, $fields)) {
                     $return = false;
                 }
-             }
+            }
         }
 
         return $return;
     }
 
     /**
-     * @param ErrorMessage $message
+     * @param MessagesError $message
      */
-    public function appendErrorMessage(ErrorMessage $message)
+    public function appendErrorMessage(MessagesError $message)
     {
         $this->_messagesGroup->appendMessage($message);
     }
 
     /**
-     * @return ErrorMessagesGroup|null
+     * @return MessagesErrorCollection|null
      */
-    public function getErrorMessage()
+    public function getErrorMessages()
     {
         return $this->_messagesGroup;
     }
 
     /**
-     * @param array|null $messages
-     * @return array|null
-     */
-    public function setDefaultErrorMessages(array $messages = null)
-    {
-
-        $defaultMessages = [
-            'MaxLength' => 'default Message',
-        ];
-
-        $this->_defaultMessages = array_merge($defaultMessages, $messages);
-        return $this->_defaultMessages;
-    }
-
-    /**
-     * @return null
+     * @return \BobbyFramework\Validation\ValidationErrorMessages
      */
     public function getDefaultErrorMessages()
     {
-        return $this->_defaultMessages;
-    }
-
-    /**
-     * @param $keyValidator
-     * @return bool
-     */
-    public function getDefaultErrorMessage($keyValidator)
-    {
-        return isset($this->_defaultMessages[$keyValidator]);
+        return $this->_ValidationErrorMessage;
     }
 
     /**
      * @param $field
      * @param $value
      */
-    public function setValue($field,$value)
+    public function setValue($field, $value)
     {
         $this->_values[$field] = $value;
     }

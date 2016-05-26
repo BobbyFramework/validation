@@ -1,22 +1,24 @@
 <?php
 
-
 define('APP_PATH', realpath('..'));
 
 require APP_PATH . '/vendor/autoload.php';
 
 use BobbyFramework\Validation\Validation;
-
+use BobbyFramework\Validation\ValidationErrorMessages;
+use BobbyFramework\Validation\Validator\MaxLength;
 
 $data = array(
-    'name' => 'ndqndqlsdqjskd'
+    'name' => 'Steve Jobs'
 );
 
-$validation = new Validation();
+$validation = new Validation(new ValidationErrorMessages([
+    'MaxLength' => 'MaxLength Error  '
+]));
 
 $validation->setValidators('name', array(
-        new \BobbyFramework\Validation\Validator\MaxLengthValidator(array(
-                'message' => 'max length Error  '
+        new MaxLength(array(
+                'maxLength' => 2
             )
         ),
     )
@@ -25,7 +27,11 @@ $validation->setValidators('name', array(
 if (true === $validation->isValid($data)) {
     echo 'valide';
 } else {
-    var_dump($validation->getDefaultErrorMessages());
+    if ($validation->getErrorMessages()->getCount()) {
+        foreach ($validation->getErrorMessages() as $message) {
+            echo '<br/>' . $message->getField() . ' : ' . $message->getMessage();
+        }
+    }
 }
 
 

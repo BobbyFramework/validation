@@ -39,14 +39,14 @@ abstract class Validator
     }
 
     /**
-     * @param $offcet
+     * @param $offset
      * @param null $defaultValue
      * @return null
      */
-    public function getOption($offcet, $defaultValue = null)
+    public function getOption($offset, $defaultValue = null)
     {
         foreach ($this->_options as $key => $value) {
-            if ($offcet === $key) {
+            if ($offset === $key) {
                 return $value;
             }
         }
