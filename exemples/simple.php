@@ -18,10 +18,9 @@ $validation = new Validation(new ValidationErrorMessages([
 
 $validation->setValidators('name', [
         new MaxLength([
-                'maxLength' => 2
-            ]
-        ],
-    )
+            'maxLength' => 2
+        ])
+    ]
 );
 
 if (true === $validation->isValid($data)) {
