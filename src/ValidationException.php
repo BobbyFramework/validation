@@ -1,5 +1,6 @@
 <?php
 namespace BobbyFramework\Validation;
+
 use BobbyFramework\Validation\Messages\Error as MessagesError;
 use BobbyFramework\Validation\Messages\ErrorCollection as MessagesErrorCollection;
 

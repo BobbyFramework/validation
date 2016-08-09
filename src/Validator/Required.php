@@ -1,14 +1,38 @@
 <?php
 namespace BobbyFramework\Validation\Validator;
 
+use BobbyFramework\Validation\Messages\Error;
 use BobbyFramework\Validation\Validator;
 use BobbyFramework\Validation\Validation;
 
-class Required extends Validator {
+/**
+ * Class Required
+ * @package BobbyFramework\Validation\Validator
+ */
+class Required extends Validator
+{
 
-    public function isValid(Validation $validation,$value)
+    /**
+     * @param Validation $validation
+     * @param $field
+     * @return bool
+     */
+    public function isValid(Validation $validation, $field)
     {
-        return $value != '';
+        $value = $validation->getValue($field);
+
+        if ($value === null || $value === "") {
+
+            $message = $this->getOption('message');
+            if (true === is_null($message)) {
+                $message = $validation->getDefaultErrorMessages()->get('required');
+            }
+
+            $validation->appendErrorMessage(new Error($message, $field));
+
+            return false;
+        }
+        return true;
     }
 }
 

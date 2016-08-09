@@ -8,9 +8,9 @@ namespace BobbyFramework\Validation;
 abstract class Validator
 {
     /**
-     * @var
+     * @var array
      */
-    protected $_options = array();
+    protected $_options = [];
 
     /**
      * Validator constructor.

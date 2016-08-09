@@ -41,7 +41,7 @@ class ErrorCollection implements \Countable, \ArrayAccess, \Iterator
      */
     public function appendMessage(Error $message)
     {
-        $this->_messages[] = $message;
+        $this->_messages[$message->getField()] = $message;
     }
 
     /**

@@ -2,15 +2,26 @@
 namespace BobbyFramework\Validation\Validator;
 
 use BobbyFramework\Validation\Messages\Error;
+use BobbyFramework\Validation\ValidationException;
 use BobbyFramework\Validation\Validator;
 use BobbyFramework\Validation\Validation;
 
+/**
+ * Class MaxLength
+ * @package BobbyFramework\Validation\Validator
+ */
 class MaxLength extends Validator
 {
+    /**
+     * @param Validation $validation
+     * @param $field
+     * @return bool
+     * @throws \Exception
+     */
     public function isValid(Validation $validation, $field)
     {
         if (false === $this->hasOption('maxLength')) {
-            throw new \Exception("A minimum or maximum must be set");
+            throw new ValidationException("A minimum or maximum must be set");
         }
 
         $maxLength = $this->getOption('maxLength');

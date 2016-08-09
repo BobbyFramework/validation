@@ -20,6 +20,7 @@ class ValidationErrorMessages
     {
         $this->_defaultMessages = [
             'MaxLength' => 'default Message',
+            'Required' => 'default Message'
         ];
 
         if (true === is_array($messages)) {
@@ -28,8 +29,8 @@ class ValidationErrorMessages
     }
 
     /**
-     * @param array|null $messages
-     * @return array|null
+     * @param array $messages
+     * @return $this
      */
     public function set(array $messages)
     {
