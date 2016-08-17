@@ -16,6 +16,10 @@ class ValidationErrorMessages
      */
     protected $_messages = [];
 
+    /**
+     * ValidationErrorMessages constructor.
+     * @param null $messages
+     */
     public function __construct($messages = null)
     {
         $this->_defaultMessages = [
