@@ -1,5 +1,8 @@
 <?php
 namespace BobbyFramework\Validation\Messages;
+
+use BobbyFramework\Validation\Validator;
+
 /**
  * Class ErrorMessage
  * @package BobbyFramework\Validation
@@ -7,28 +10,28 @@ namespace BobbyFramework\Validation\Messages;
 class Error
 {
     /**
-     * @var
+     * @var string
      */
     protected $_message;
 
     /**
-     * @var
+     * @var string
      */
     protected $_field = null;
 
     /**
      * Error constructor.
      * @param $message
-     * @param null $field
+     * @param $field
      */
-    public function __construct($message, $field = null)
+    public function __construct($message, $field)
     {
         $this->setMessage($message);
         $this->setField($field);
     }
 
     /**
-     * @param $message
+     * @param string $message
      * @return $this
      */
     public function setMessage($message)
@@ -38,7 +41,7 @@ class Error
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getMessage()
     {
@@ -46,7 +49,7 @@ class Error
     }
 
     /**
-     * @param $field
+     * @param string $field
      * @return $this
      */
     public function setField($field)
@@ -56,7 +59,7 @@ class Error
     }
 
     /**
-     * @return null
+     * @return string
      */
     public function getField()
     {
@@ -64,7 +67,7 @@ class Error
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function __toString()
     {

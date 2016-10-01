@@ -6,10 +6,10 @@ use BobbyFramework\Validation\Validator;
 use BobbyFramework\Validation\Validation;
 
 /**
- * Class Email
+ * Class Password
  * @package BobbyFramework\Validation\Validator
  */
-class Email extends Validator
+class Password extends Validator
 {
 
     /**
@@ -19,14 +19,11 @@ class Email extends Validator
      */
     public function isValid(Validation $validation, $field)
     {
-        //return true;
-
         $message = $this->getOption('message');
         if (true === is_null($message)) {
-            $message = $validation->getDefaultErrorMessages()->get('email');
+            $message = $validation->getDefaultErrorMessages()->get('Password');
         }
 
-        //error add Message
         $validation->appendErrorMessageForValidator(new Error($message, $field), $this);
     }
 }

@@ -40,7 +40,7 @@ class MaxLength extends Validator
             $message = $validation->getDefaultErrorMessages()->get('MaxLength');
         }
 
-        $validation->appendErrorMessage(new Error($message, $field));
+        $validation->appendErrorMessageForValidator(new Error($message, $field), $this);
 
         return false;
     }

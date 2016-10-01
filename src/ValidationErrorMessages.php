@@ -24,8 +24,12 @@ class ValidationErrorMessages
     {
         $this->_defaultMessages = [
             'MaxLength' => 'default Message',
-            'Required' => 'default Message'
+            'Required' => 'default Message',
+            'email' => 'default Message',
+            'Password' => 'default Message',
         ];
+
+        $this->_messages = $this->_defaultMessages;
 
         if (true === is_array($messages)) {
             $this->set($messages);
@@ -38,7 +42,7 @@ class ValidationErrorMessages
      */
     public function set(array $messages)
     {
-        $this->_messages = array_merge($this->_defaultMessages, $messages);
+        $this->_messages = array_merge($messages, $this->_defaultMessages);
         return $this;
     }
 

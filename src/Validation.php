@@ -14,14 +14,17 @@ class Validation
      * @var array
      */
     private $_validators = [];
+
     /**
      * @var MessagesErrorCollection|null
      */
     private $_messagesGroup = null;
+
     /**
      * @var array
      */
     protected $_values = [];
+
     /**
      * @var ValidationErrorMessages|null
      */
@@ -74,6 +77,9 @@ class Validation
             foreach ($field as $validator) {
                 if (false === $validator->isValid($this, $fields)) {
                     $return = false;
+                    if (true === $validator->isStrict()) {
+                        break;
+                    }
                 }
             }
         }
@@ -84,9 +90,9 @@ class Validation
     /**
      * @param MessagesError $message
      */
-    public function appendErrorMessage(MessagesError $message)
+    public function appendErrorMessageForValidator(MessagesError $message, $validator)
     {
-        $this->_messagesGroup->appendMessage($message);
+        $this->_messagesGroup->appendMessage($message, $validator);
     }
 
     /**

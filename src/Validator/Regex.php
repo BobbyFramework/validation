@@ -6,9 +6,8 @@ use BobbyFramework\Validation\Validation;
 
 class Regex extends Validator
 {
-    public function isValid(Validation $validation, $value)
+    public function isValid(Validation $validation, $field)
     {
-        // TODO: Implement isValid() method.
-        return false;
+
     }
 }

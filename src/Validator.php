@@ -1,5 +1,6 @@
 <?php
 namespace BobbyFramework\Validation;
+use Doctrine\Instantiator\Exception\InvalidArgumentException;
 
 /**
  * Class Validator
@@ -8,15 +9,19 @@ namespace BobbyFramework\Validation;
 abstract class Validator
 {
     /**
-     * @var array
+     * @var bool $strict
      */
-    protected $_options = [];
+    protected $strict = false;
+    /**
+     * @var array $options
+     */
+    protected $options = [];
 
     /**
      * Validator constructor.
-     * @param $options
+     * @param array $options
      */
-    public function __construct($options)
+    public function __construct(array $options = [])
     {
         $this->setOptions($options);
     }
@@ -26,7 +31,7 @@ abstract class Validator
      */
     public function setOptions($options)
     {
-        $this->_options = $options;
+        $this->options = $options;
     }
 
     /**
@@ -35,7 +40,7 @@ abstract class Validator
      */
     public function hasOption($key)
     {
-        return isset ($this->_options[$key]);
+        return isset ($this->options[$key]);
     }
 
     /**
@@ -45,7 +50,7 @@ abstract class Validator
      */
     public function getOption($offset, $defaultValue = null)
     {
-        foreach ($this->_options as $key => $value) {
+        foreach ($this->options as $key => $value) {
             if ($offset === $key) {
                 return $value;
             }
@@ -61,4 +66,23 @@ abstract class Validator
      * @return mixed
      */
     abstract public function isValid(Validation $validation, $value);
+
+    /**
+     * @param bool $strict
+     */
+    public function setStrict($strict)
+    {
+        if (false === is_bool($strict)) {
+            throw new \InvalidArgumentException('Strict is invalid');
+        }
+        $this->strict = $strict;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStrict()
+    {
+        return $this->strict;
+    }
 }

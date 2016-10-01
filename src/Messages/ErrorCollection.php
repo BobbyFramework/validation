@@ -1,5 +1,6 @@
 <?php
 namespace BobbyFramework\Validation\Messages;
+use BobbyFramework\Validation\Validator;
 
 /**
  * Class ErrorMessagesGroup
@@ -38,10 +39,15 @@ class ErrorCollection implements \Countable, \ArrayAccess, \Iterator
 
     /**
      * @param Error $message
+     * @param Validator $validator
      */
-    public function appendMessage(Error $message)
+    public function appendMessage(Error $message, Validator $validator)
     {
-        $this->_messages[$message->getField()] = $message;
+        $this->_messages[$message->getField()]['current'] = $message;
+
+        if (false === $validator->isStrict()) {
+            $this->_messages[$message->getField()]['errors'][] = $message;
+        }
     }
 
     /**
@@ -75,7 +81,7 @@ class ErrorCollection implements \Countable, \ArrayAccess, \Iterator
      */
     public function get($offset, $defaultValue = null)
     {
-        return isset($this->_messages[$offset]) ? $this->_messages[$offset] : $defaultValue;
+        return isset($this->_messages[$offset]['current']) ? $this->_messages[$offset]['current'] : $defaultValue;
     }
 
     /**
@@ -133,7 +139,7 @@ class ErrorCollection implements \Countable, \ArrayAccess, \Iterator
      */
     public function offsetSet($offset, $value)
     {
-        $this->_messages[$offset] = $value;
+        $this->_messages[$offset]['current'] = $value;
     }
 
     /**
@@ -142,7 +148,7 @@ class ErrorCollection implements \Countable, \ArrayAccess, \Iterator
      */
     public function offsetExists($offset)
     {
-        return isset($this->_messages[$offset]);
+        return isset($this->_messages[$offset]['current']);
     }
 
     /**
@@ -150,7 +156,7 @@ class ErrorCollection implements \Countable, \ArrayAccess, \Iterator
      */
     public function offsetUnset($offset)
     {
-        unset($this->_messages[$offset]);
+        unset($this->_messages[$offset]['current']);
     }
 
     /**
@@ -159,7 +165,7 @@ class ErrorCollection implements \Countable, \ArrayAccess, \Iterator
      */
     public function offsetGet($offset)
     {
-        return isset($this->_messages[$offset]) ? $this->_messages[$offset] : null;
+        return isset($this->_messages[$offset]['current']) ? $this->_messages[$offset]['current'] : null;
     }
 
 }

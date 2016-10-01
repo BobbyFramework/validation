@@ -12,6 +12,8 @@ use BobbyFramework\Validation\Validation;
 class Required extends Validator
 {
 
+    protected $strict = true;
+
     /**
      * @param Validation $validation
      * @param $field
@@ -24,11 +26,12 @@ class Required extends Validator
         if ($value === null || $value === "") {
 
             $message = $this->getOption('message');
+
             if (true === is_null($message)) {
-                $message = $validation->getDefaultErrorMessages()->get('required');
+                $message = $validation->getDefaultErrorMessages()->get('Required');
             }
 
-            $validation->appendErrorMessage(new Error($message, $field));
+            $validation->appendErrorMessageForValidator(new Error($message, $field),$this);
 
             return false;
         }
