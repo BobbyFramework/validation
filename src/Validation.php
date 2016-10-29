@@ -112,7 +112,7 @@ class Validation
     }
 
     /**
-     * @param $field
+     * @param string $field
      * @param $value
      */
     public function setValue($field, $value)
@@ -121,11 +121,12 @@ class Validation
     }
 
     /**
-     * @param $field
+     * @param string $field
+     * @param null $defaultValue
      * @return mixed
      */
-    public function getValue($field)
+    public function getValue($field, $defaultValue = null)
     {
-        return $this->_values[$field];
+        return isset($this->_values[$field]) ? $this->_values[$field] : $defaultValue;
     }
 }
