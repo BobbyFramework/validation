@@ -1,32 +1,21 @@
 <?php
 namespace BobbyFramework\Validation\Validator;
 
-use BobbyFramework\Validation\Messages\Error;
 use BobbyFramework\Validation\Validator;
 use BobbyFramework\Validation\Validation;
 
-/**
- * Class Email
- * @package BobbyFramework\Validation\Validator
- */
-class Email extends Validator
+class AlphaNum extends Validator
 {
-
-    /**
-     * @param Validation $validation
-     * @param $field
-     * @return mixed|void
-     */
-    public function isValid(Validation $validation, $field)
+    public function isValid(Validation $validation ,$value)
     {
         $value = $validation->getValue($field);
 
-        if (filter_var($value, FILTER_VALIDATE_EMAIL) === false) {
+        if (preg_match('/^([a-z0-9])+$/i', $value) === false) {
 
             $message = $this->getOption('message');
 
             if (true === is_null($message)) {
-                $message = $validation->getDefaultErrorMessages()->get('Email');
+                $message = $validation->getDefaultErrorMessages()->get('AlphaNum');
             }
       
             //error add Message

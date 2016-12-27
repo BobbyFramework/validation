@@ -7,9 +7,9 @@ namespace BobbyFramework\Validation;
 class ValidationErrorMessages
 {
     /**
-     * @var array|null
+     * @var array
      */
-    protected $_defaultMessages = null;
+    protected $_defaultMessages = [];
 
     /**
      * @var array
@@ -20,20 +20,18 @@ class ValidationErrorMessages
      * ValidationErrorMessages constructor.
      * @param null $messages
      */
-    public function __construct($messages = null)
+    public function __construct(array $messages = [])
     {
         $this->_defaultMessages = [
             'MaxLength' => 'default Message',
             'Required' => 'default Message',
-            'email' => 'default Message',
+            'Email' => 'default Message',
             'Password' => 'default Message',
         ];
 
         $this->_messages = $this->_defaultMessages;
 
-        if (true === is_array($messages)) {
-            $this->set($messages);
-        }
+        $this->set($messages);
     }
 
     /**
@@ -42,7 +40,7 @@ class ValidationErrorMessages
      */
     public function set(array $messages)
     {
-        $this->_messages = array_merge($messages, $this->_defaultMessages);
+        $this->_messages = array_merge($this->_messages,$messages);
         return $this;
     }
 

@@ -1,5 +1,6 @@
 <?php
 namespace BobbyFramework\Validation;
+
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
 
 /**

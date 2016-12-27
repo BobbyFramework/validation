@@ -1,12 +1,13 @@
 <?php
 namespace BobbyFramework\Validation\Messages;
+
 use BobbyFramework\Validation\Validator;
 
 /**
  * Class ErrorMessagesGroup
  * @package BobbyFramework\Validation
  */
-class ErrorCollection implements \Countable, \ArrayAccess, \Iterator
+class ErrorCollection implements CollectionInterface
 {
     /**
      * @var $_messages
@@ -43,11 +44,7 @@ class ErrorCollection implements \Countable, \ArrayAccess, \Iterator
      */
     public function appendMessage(Error $message, Validator $validator)
     {
-        $this->_messages[$message->getField()]['current'] = $message;
-
-        if (false === $validator->isStrict()) {
-            $this->_messages[$message->getField()]['errors'][] = $message;
-        }
+        $this->_messages[] = $message;
     }
 
     /**
@@ -75,15 +72,48 @@ class ErrorCollection implements \Countable, \ArrayAccess, \Iterator
     }
 
     /**
+    * Set collection item
+    *
+    * @param string $key The message key
+    * @param mixed $value The message value
+    */
+    public function set($key, $value)
+    {
+        $this->_messages[$key] = $value;
+    }
+    /**
      * @param $offset
      * @param null $defaultValue
      * @return null
      */
     public function get($offset, $defaultValue = null)
     {
-        return isset($this->_messages[$offset]['current']) ? $this->_messages[$offset]['current'] : $defaultValue;
+        return $this->has($offset) ? $this->_messages[$offset] : $defaultValue;
     }
 
+    /**
+    * Add item to collection
+    *
+    * @param array $items Key-value array of data to append to this collection
+    */
+    public function replace(array $items)
+    {
+        foreach ($items as $key => $value) {
+            $this->set($key, $value);
+        }
+    }
+
+    /**
+    * Does this collection have a given key?
+    *
+    * @param string $key The data key
+    *
+    * @return bool
+    */
+    public function has($key)
+    {
+        return array_key_exists($key, $this->_messages);
+    }
     /**
      *
      */
@@ -139,7 +169,7 @@ class ErrorCollection implements \Countable, \ArrayAccess, \Iterator
      */
     public function offsetSet($offset, $value)
     {
-        $this->_messages[$offset]['current'] = $value;
+        $this->set($offset,$value);
     }
 
     /**
@@ -148,7 +178,7 @@ class ErrorCollection implements \Countable, \ArrayAccess, \Iterator
      */
     public function offsetExists($offset)
     {
-        return isset($this->_messages[$offset]['current']);
+        return $this->has(offset);
     }
 
     /**
@@ -156,7 +186,7 @@ class ErrorCollection implements \Countable, \ArrayAccess, \Iterator
      */
     public function offsetUnset($offset)
     {
-        unset($this->_messages[$offset]['current']);
+        $this->remove($offset);
     }
 
     /**
@@ -165,7 +195,34 @@ class ErrorCollection implements \Countable, \ArrayAccess, \Iterator
      */
     public function offsetGet($offset)
     {
-        return isset($this->_messages[$offset]['current']) ? $this->_messages[$offset]['current'] : null;
+        return $this->get($offset);
     }
 
+    /**
+    * Remove item from collection
+    *
+    * @param string $key The message key
+    */
+    public function remove($key)
+    {
+        unset($this->_messages[$key]);
+    }
+
+    /**
+     * Remove all items from collection
+     */
+    public function clear()
+    {
+        $this->_messages = [];
+    }
+
+    /**
+    * Get collection keys
+    *
+    * @return array The collection's source message keys
+    */
+    public function keys()
+    {
+        return array_keys($this->_messages);
+    }
 }

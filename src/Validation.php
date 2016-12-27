@@ -41,7 +41,7 @@ class Validation
     }
 
     /**
-     * @return null
+     * @return array
      */
     public function getValidators()
     {
@@ -49,7 +49,7 @@ class Validation
     }
 
     /**
-     * @param $field
+     * @param string $field
      * @param array $validators
      */
     public function setValidators($field, $validators)
