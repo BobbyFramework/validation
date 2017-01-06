@@ -1,5 +1,6 @@
 <?php
 namespace BobbyFramework\Validation;
+
 /**
  * Class ErrorMessage
  * @package BobbyFramework\Validation
@@ -9,38 +10,38 @@ class ValidationErrorMessages
     /**
      * @var array
      */
-    protected $_defaultMessages = [];
+    protected $defaultMessages = [];
 
     /**
-     * @var array
+     * @var array $messages
      */
-    protected $_messages = [];
+    protected $messages = [];
 
     /**
      * ValidationErrorMessages constructor.
-     * @param null $messages
+     * @param array $messages
      */
     public function __construct(array $messages = [])
     {
-        $this->_defaultMessages = [
+        $this->defaultMessages = [
             'MaxLength' => 'default Message',
             'Required' => 'default Message',
             'Email' => 'default Message',
             'Password' => 'default Message',
         ];
 
-        $this->_messages = $this->_defaultMessages;
+        $this->messages = $this->defaultMessages;
 
-        $this->set($messages);
+        $this->setMessages($messages);
     }
 
     /**
      * @param array $messages
      * @return $this
      */
-    public function set(array $messages)
+    public function setMessages(array $messages)
     {
-        $this->_messages = array_merge($this->_messages,$messages);
+        $this->messages = array_merge($this->messages, $messages);
         return $this;
     }
 
@@ -51,6 +52,6 @@ class ValidationErrorMessages
      */
     public function get($keyValidator, $defaultValue = null)
     {
-        return isset($this->_messages[$keyValidator]) ? $this->_messages[$keyValidator] : $defaultValue;
+        return isset($this->messages[$keyValidator]) ? $this->messages[$keyValidator] : $defaultValue;
     }
 }

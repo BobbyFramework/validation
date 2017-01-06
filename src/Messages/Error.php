@@ -12,19 +12,19 @@ class Error
     /**
      * @var string
      */
-    protected $_message;
+    protected $message = '';
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected $_field = null;
+    protected $field = null;
 
     /**
      * Error constructor.
-     * @param $message
-     * @param $field
+     * @param string $message
+     * @param null $field
      */
-    public function __construct($message, $field)
+    public function __construct($message = '', $field = null)
     {
         $this->setMessage($message);
         $this->setField($field);
@@ -36,7 +36,7 @@ class Error
      */
     public function setMessage($message)
     {
-        $this->_message = $message;
+        $this->message = $message;
         return $this;
     }
 
@@ -45,16 +45,16 @@ class Error
      */
     public function getMessage()
     {
-        return $this->_message;
+        return $this->message;
     }
 
     /**
-     * @param string $field
+     * @param string|null $field
      * @return $this
      */
     public function setField($field)
     {
-        $this->_field = $field;
+        $this->field = $field;
         return $this;
     }
 
@@ -63,7 +63,7 @@ class Error
      */
     public function getField()
     {
-        return $this->_field;
+        return $this->field;
     }
 
     /**

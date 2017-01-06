@@ -44,7 +44,7 @@ class ErrorCollection implements CollectionInterface
      */
     public function appendMessage(Error $message, Validator $validator)
     {
-        $this->_messages[] = $message;
+        $this->_messages[$message->getField()] = $message;
     }
 
     /**
