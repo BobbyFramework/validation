@@ -24,10 +24,18 @@ class ValidationErrorMessages
     public function __construct(array $messages = [])
     {
         $this->defaultMessages = [
+            'Alpha' => 'default',
+            'AlphaNum' => 'default',
             'MaxLength' => 'default Message',
             'Required' => 'default Message',
             'Email' => 'default Message',
-            'Password' => 'default Message',
+            'Confirmation' => 'Field [FIELD] must be the same as [FIELD:With]',
+            'password' => [
+                'number' => 'Your Password Must Contain At Least 8 Characters !',
+                'numberOfCharacters' => 'Your Password Must Contain At Least 1 Number !',
+                'capitalLetter' => 'Your Password Must Contain At Least 1 Capital Letter !',
+                'lowercaseLetter' => 'Your Password Must Contain At Least 1 Lowercase Letter !'
+            ],
         ];
 
         $this->messages = $this->defaultMessages;

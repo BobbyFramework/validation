@@ -1,11 +1,23 @@
 <?php
 namespace BobbyFramework\Validation\Validator;
 
+use BobbyFramework\Validation\Messages\Error;
+use BobbyFramework\Validation\ValidationException;
 use BobbyFramework\Validation\Validator;
 use BobbyFramework\Validation\Validation;
 
+/**
+ * Class Regex
+ * @package BobbyFramework\Validation\Validator
+ */
 class Regex extends Validator
 {
+    /**
+     * @param Validation $validation
+     * @param $field
+     * @return bool
+     * @throws ValidationException
+     */
     public function isValid(Validation $validation, $field)
     {
 		$value = $validation->getValue($field);
@@ -16,7 +28,7 @@ class Regex extends Validator
 
 		$regex = $this->getOption('regex');
 
-        if (preg_match($regex $value) === false) {
+        if (preg_match($regex,$value) === false) {
 
             $message = $this->getOption('message');
 
@@ -30,3 +42,4 @@ class Regex extends Validator
         return true;
     }
 }
+

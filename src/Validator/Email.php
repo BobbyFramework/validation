@@ -11,7 +11,6 @@ use BobbyFramework\Validation\Validation;
  */
 class Email extends Validator
 {
-
     /**
      * @param Validation $validation
      * @param $field
@@ -35,3 +34,4 @@ class Email extends Validator
         return true;
     }
 }
+

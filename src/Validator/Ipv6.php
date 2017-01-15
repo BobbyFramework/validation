@@ -12,3 +12,4 @@ class Ipv6 extends Validator
         return false;
     }
 }
+

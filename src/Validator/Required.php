@@ -11,7 +11,9 @@ use BobbyFramework\Validation\Validation;
  */
 class Required extends Validator
 {
-
+    /**
+     * @var bool
+     */
     protected $strict = true;
 
     /**

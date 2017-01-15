@@ -1,12 +1,22 @@
 <?php
 namespace BobbyFramework\Validation\Validator;
 
+use BobbyFramework\Validation\Messages\Error;
 use BobbyFramework\Validation\Validator;
 use BobbyFramework\Validation\Validation;
 
+/**
+ * Class AlphaNum
+ * @package BobbyFramework\Validation\Validator
+ */
 class AlphaNum extends Validator
 {
-    public function isValid(Validation $validation ,$value)
+    /**
+     * @param Validation $validation
+     * @param $field
+     * @return bool
+     */
+    public function isValid(Validation $validation ,$field)
     {
         $value = $validation->getValue($field);
 

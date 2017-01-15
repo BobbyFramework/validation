@@ -12,6 +12,7 @@ use BobbyFramework\Validation\Validation;
  */
 class MaxLength extends Validator
 {
+
     /**
      * @param Validation $validation
      * @param $field

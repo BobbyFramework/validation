@@ -41,9 +41,11 @@ class Error
     }
 
     /**
+     * @param null $key
+     * @param null $defaultValue
      * @return string
      */
-    public function getMessage()
+    public function getMessage($key = null,$defaultValue = null)
     {
         return $this->message;
     }

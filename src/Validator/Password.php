@@ -11,6 +11,24 @@ use BobbyFramework\Validation\Validation;
  */
 class Password extends Validator
 {
+    /**
+     * Password constructor.
+     * @param array $options
+     */
+    public function __construct(array $options = [])
+    {
+        $optionsDefault = [
+            'withFigures' => true,
+            'withLowercaseLetters' => true,
+            'withCapitalLetters' => true,
+            'withSpecialCharacters' => true,
+            'numberOfCharacters' => 8,
+        ];
+
+        $options = array_merge($optionsDefault, $options);
+
+        parent::__construct($options);
+    }
 
     /**
      * @param Validation $validation
@@ -19,11 +37,58 @@ class Password extends Validator
      */
     public function isValid(Validation $validation, $field)
     {
-        $message = $this->getOption('message');
-        if (true === is_null($message)) {
-            $message = $validation->getDefaultErrorMessages()->get('Password');
+        $value = $validation->getValue($field);
+
+        $withFigures = $this->getOption('withFigures');
+        $withLowercaseLetters = $this->getOption('withLowercaseLetters');
+        $withCapitalLetters = $this->getOption('withCapitalLetters');
+        $withSpecialCharacters = $this->getOption('withSpecialCharacters');
+        $numberOfCharacters = $this->getOption('numberOfCharacters');
+
+        $error = 0;
+        if (strlen($value) <= $numberOfCharacters) {
+            $messages[] = $this->getErrorMessage("numberOfCharacters", $validation);
+            $error++;
         }
 
-        $validation->appendErrorMessageForValidator(new Error($message, $field), $this);
+        if ($withFigures && !preg_match("#[0-9]+#", $value)) {
+            $messages[] = $this->getErrorMessage("number", $validation);
+            $error++;
+        }
+
+        if ($withCapitalLetters && !preg_match("#[A-Z]+#", $value)) {
+            $messages[] = $this->getErrorMessage("capitalLetter", $validation);
+            $error++;
+        }
+
+        if ($withLowercaseLetters && !preg_match("#[a-z]+#", $value)) {
+            $messages[] = $this->getErrorMessage("lowercaseLetter", $validation);
+            $error++;
+        }
+
+        /*if($withSpecialCharacters && !preg_match("#[~`!@#$%^&*()_-+=\[\]{}\|\\:;\"\'<,>.]#", $value)) {
+            $messages[] = $this->getErrorMessage("lowercaseLetter", $validation);
+            $error++;
+        }*/
+        if ($error === 0) {
+            return true;
+        }
+
+        $validation->appendErrorMessageForValidator(new Error($messages, $field), $this);
+    }
+
+    /**
+     * @param $key
+     * @param $validation
+     * @return mixed
+     */
+    private function getErrorMessage($key, $validation)
+    {
+        $message = $this->getOption('message')[$key];
+        if (true === is_null($message)) {
+            $message = $validation->getDefaultErrorMessages()->get('password')[$key];
+        }
+        return $message;
     }
 }
+
