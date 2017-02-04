@@ -27,9 +27,11 @@ class Email extends Validator
             if (true === is_null($message)) {
                 $message = $validation->getDefaultErrorMessages()->get('Email');
             }
-      
+
             //error add Message
             $validation->appendErrorMessageForValidator(new Error($message, $field), $this);
+
+            return false;
         }
         return true;
     }

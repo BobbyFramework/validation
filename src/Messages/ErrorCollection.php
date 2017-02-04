@@ -12,7 +12,7 @@ class ErrorCollection implements CollectionInterface
     /**
      * @var $_messages
      */
-    protected $_messages;
+    protected $_messages = [];
 
     /**
      * @var $_position
