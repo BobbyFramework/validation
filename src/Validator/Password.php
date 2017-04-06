@@ -33,7 +33,7 @@ class Password extends Validator
     /**
      * @param Validation $validation
      * @param $field
-     * @return mixed|void
+     * @return bool
      */
     public function isValid(Validation $validation, $field)
     {
@@ -70,11 +70,13 @@ class Password extends Validator
             $messages[] = $this->getErrorMessage("lowercaseLetter", $validation);
             $error++;
         }*/
+
         if ($error === 0) {
             return true;
         }
 
         $validation->appendErrorMessageForValidator(new Error($messages, $field), $this);
+        return false;
     }
 
     /**
