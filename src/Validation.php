@@ -1,8 +1,10 @@
 <?php
+
 namespace BobbyFramework\Validation;
 
 use BobbyFramework\Validation\Messages\Error as MessagesError;
 use BobbyFramework\Validation\Messages\ErrorCollection as MessagesErrorCollection;
+use Closure;
 
 /**
  * Class Validation
@@ -50,12 +52,14 @@ class Validation
 
     /**
      * @param string $field
-     * @param array $validators
+     * @param array array $validators
      */
     public function setValidators($field, $validators)
     {
         foreach ($validators as $validator) {
             if ($validator instanceof Validator) {
+                $this->_validators[$field][] = $validator;
+            } elseif ($validator instanceof Closure) {
                 $this->_validators[$field][] = $validator;
             }
         }
@@ -73,12 +77,25 @@ class Validation
         $this->_values = $data;
 
         $return = true;
+
         foreach ($this->_validators as $fields => $field) {
-            foreach ($field as $validator) {
-                if (false === $validator->isValid($this, $fields)) {
-                    $return = false;
-                    if (true === $validator->isStrict()) {
-                        break;
+            foreach ($field as $key => $validator) {
+                if ($validator instanceof Closure) {
+                    $execute = call_user_func($validator, $this, $fields);
+                    if (!is_bool($execute)) {
+                        throw new \InvalidArgumentException('return function is not bool');
+                    }
+
+                    if ($execute === false) {
+                        $return = false;
+                    }
+
+                } else {
+                    if (false === $validator->isValid($this, $fields)) {
+                        $return = false;
+                        if (true === $validator->isStrict()) {
+                            break;
+                        }
                     }
                 }
             }
@@ -90,9 +107,9 @@ class Validation
     /**
      * @param MessagesError $message
      */
-    public function appendErrorMessageForValidator(MessagesError $message, $validator)
+    public function appendErrorMessageForValidator(MessagesError $message)
     {
-        $this->_messagesGroup->appendMessage($message, $validator);
+        $this->_messagesGroup->appendMessage($message);
     }
 
     /**

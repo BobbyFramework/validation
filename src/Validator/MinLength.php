@@ -1,4 +1,5 @@
 <?php
+
 namespace BobbyFramework\Validation\Validator;
 
 use BobbyFramework\Validation\Messages\Error;
@@ -25,7 +26,7 @@ class MinLength extends Validator
         }
 
         $minLength = $this->getOption('minLength');
-        
+
         $value = $validation->getValue($field);
 
         if (strlen($value) >= $minLength) {
@@ -37,7 +38,7 @@ class MinLength extends Validator
             $message = $validation->getDefaultErrorMessages()->get('MinLength');
         }
 
-        $validation->appendErrorMessageForValidator(new Error($message, $field), $this);
+        $validation->appendErrorMessageForValidator(new Error($message, $field));
 
         return false;
     }

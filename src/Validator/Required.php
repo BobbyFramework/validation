@@ -1,4 +1,5 @@
 <?php
+
 namespace BobbyFramework\Validation\Validator;
 
 use BobbyFramework\Validation\Messages\Error;
@@ -33,7 +34,7 @@ class Required extends Validator
                 $message = $validation->getDefaultErrorMessages()->get('Required');
             }
 
-            $validation->appendErrorMessageForValidator(new Error($message, $field),$this);
+            $validation->appendErrorMessageForValidator(new Error($message, $field));
 
             return false;
         }

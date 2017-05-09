@@ -1,8 +1,6 @@
 <?php
 namespace BobbyFramework\Validation\Messages;
 
-use BobbyFramework\Validation\Validator;
-
 /**
  * Class ErrorMessagesGroup
  * @package BobbyFramework\Validation
@@ -40,9 +38,8 @@ class ErrorCollection implements CollectionInterface
 
     /**
      * @param Error $message
-     * @param Validator $validator
      */
-    public function appendMessage(Error $message, Validator $validator)
+    public function appendMessage(Error $message)
     {
         $this->_messages[$message->getField()] = $message;
     }
@@ -178,7 +175,7 @@ class ErrorCollection implements CollectionInterface
      */
     public function offsetExists($offset)
     {
-        return $this->has(offset);
+        return $this->has($offset);
     }
 
     /**

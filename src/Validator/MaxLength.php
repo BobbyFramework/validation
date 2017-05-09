@@ -1,4 +1,5 @@
 <?php
+
 namespace BobbyFramework\Validation\Validator;
 
 use BobbyFramework\Validation\Messages\Error;
@@ -41,7 +42,7 @@ class MaxLength extends Validator
             $message = $validation->getDefaultErrorMessages()->get('MaxLength');
         }
 
-        $validation->appendErrorMessageForValidator(new Error($message, $field), $this);
+        $validation->appendErrorMessageForValidator(new Error($message, $field));
 
         return false;
     }

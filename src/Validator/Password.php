@@ -1,4 +1,5 @@
 <?php
+
 namespace BobbyFramework\Validation\Validator;
 
 use BobbyFramework\Validation\Messages\Error;
@@ -75,7 +76,7 @@ class Password extends Validator
             return true;
         }
 
-        $validation->appendErrorMessageForValidator(new Error($messages, $field), $this);
+        $validation->appendErrorMessageForValidator(new Error($messages, $field));
         return false;
     }
 

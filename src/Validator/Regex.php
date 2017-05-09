@@ -1,4 +1,5 @@
 <?php
+
 namespace BobbyFramework\Validation\Validator;
 
 use BobbyFramework\Validation\Messages\Error;
@@ -20,24 +21,24 @@ class Regex extends Validator
      */
     public function isValid(Validation $validation, $field)
     {
-		$value = $validation->getValue($field);
+        $value = $validation->getValue($field);
 
-		if (false === $this->hasOption('regex')) {
+        if (false === $this->hasOption('regex')) {
             throw new ValidationException("A Regex");
         }
 
-		$regex = $this->getOption('regex');
+        $regex = $this->getOption('regex');
 
-        if (preg_match($regex,$value) === false) {
+        if (preg_match($regex, $value) === false) {
 
             $message = $this->getOption('message');
 
             if (true === is_null($message)) {
                 $message = $validation->getDefaultErrorMessages()->get('Regex');
             }
-      
+
             //error add Message
-            $validation->appendErrorMessageForValidator(new Error($message, $field), $this);
+            $validation->appendErrorMessageForValidator(new Error($message, $field));
         }
         return true;
     }

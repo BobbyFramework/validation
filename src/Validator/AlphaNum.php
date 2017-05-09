@@ -1,4 +1,5 @@
 <?php
+
 namespace BobbyFramework\Validation\Validator;
 
 use BobbyFramework\Validation\Messages\Error;
@@ -16,7 +17,7 @@ class AlphaNum extends Validator
      * @param $field
      * @return bool
      */
-    public function isValid(Validation $validation ,$field)
+    public function isValid(Validation $validation, $field)
     {
         $value = $validation->getValue($field);
 
@@ -27,9 +28,9 @@ class AlphaNum extends Validator
             if (true === is_null($message)) {
                 $message = $validation->getDefaultErrorMessages()->get('AlphaNum');
             }
-      
+
             //error add Message
-            $validation->appendErrorMessageForValidator(new Error($message, $field), $this);
+            $validation->appendErrorMessageForValidator(new Error($message, $field));
         }
         return true;
     }

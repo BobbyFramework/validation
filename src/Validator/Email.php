@@ -1,4 +1,5 @@
 <?php
+
 namespace BobbyFramework\Validation\Validator;
 
 use BobbyFramework\Validation\Messages\Error;
@@ -29,7 +30,7 @@ class Email extends Validator
             }
 
             //error add Message
-            $validation->appendErrorMessageForValidator(new Error($message, $field), $this);
+            $validation->appendErrorMessageForValidator(new Error($message, $field));
 
             return false;
         }

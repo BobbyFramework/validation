@@ -1,4 +1,5 @@
 <?php
+
 namespace BobbyFramework\Validation\Validator;
 
 use BobbyFramework\Validation\Validator;
@@ -15,7 +16,7 @@ class Ip extends Validator
      * @param $value
      * @return bool
      */
-    public function isValid(Validation $validation ,$value)
+    public function isValid(Validation $validation, $value)
     {
         // TODO: Implement isValid() method.
         return false;
