@@ -54,7 +54,7 @@ class Validation
      * @param string $field
      * @param array array $validators
      */
-    public function setValidators($field, $validators)
+    public function setValidators($field, array $validators)
     {
         foreach ($validators as $validator) {
             if ($validator instanceof Validator) {
