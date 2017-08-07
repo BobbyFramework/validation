@@ -47,6 +47,7 @@ class Password extends Validator
         $numberOfCharacters = $this->getOption('numberOfCharacters');
 
         $error = 0;
+        $messages = [];
         if (strlen($value) <= $numberOfCharacters) {
             $messages[] = $this->getErrorMessage("numberOfCharacters", $validation);
             $error++;
@@ -77,6 +78,7 @@ class Password extends Validator
         }
 
         $validation->appendErrorMessageForValidator(new Error($messages, $field));
+
         return false;
     }
 
@@ -91,7 +93,7 @@ class Password extends Validator
         if (true === is_null($message)) {
             $message = $validation->getDefaultErrorMessages()->get('password')[$key];
         }
+
         return $message;
     }
 }
-

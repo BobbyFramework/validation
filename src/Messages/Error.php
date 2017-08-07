@@ -1,8 +1,6 @@
 <?php
 namespace BobbyFramework\Validation\Messages;
 
-use BobbyFramework\Validation\Validator;
-
 /**
  * Class ErrorMessage
  * @package BobbyFramework\Validation
@@ -41,11 +39,9 @@ class Error
     }
 
     /**
-     * @param null $key
-     * @param null $defaultValue
      * @return string
      */
-    public function getMessage($key = null,$defaultValue = null)
+    public function getMessage()
     {
         return $this->message;
     }

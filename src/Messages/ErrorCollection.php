@@ -69,14 +69,15 @@ class ErrorCollection implements CollectionInterface
     }
 
     /**
-    * Set collection item
-    *
-    * @param string $key The message key
-    * @param mixed $value The message value
-    */
+     * @param $key
+     * @param $value
+     * @return $this|mixed
+     */
     public function set($key, $value)
     {
         $this->_messages[$key] = $value;
+
+        return $this;
     }
     /**
      * @param $offset
@@ -89,10 +90,11 @@ class ErrorCollection implements CollectionInterface
     }
 
     /**
-    * Add item to collection
-    *
-    * @param array $items Key-value array of data to append to this collection
-    */
+     * Add item to collection
+     *
+     * @param array $items Key-value array of data to append to this collection
+     * @return mixed|void
+     */
     public function replace(array $items)
     {
         foreach ($items as $key => $value) {
@@ -196,10 +198,10 @@ class ErrorCollection implements CollectionInterface
     }
 
     /**
-    * Remove item from collection
-    *
-    * @param string $key The message key
-    */
+     * Remove item from collection
+     *
+     * @param string $key The message key
+     */
     public function remove($key)
     {
         unset($this->_messages[$key]);

@@ -15,7 +15,7 @@ class Email extends Validator
     /**
      * @param Validation $validation
      * @param $field
-     * @return mixed|void
+     * @return bool
      */
     public function isValid(Validation $validation, $field)
     {
@@ -34,6 +34,7 @@ class Email extends Validator
 
             return false;
         }
+
         return true;
     }
 }

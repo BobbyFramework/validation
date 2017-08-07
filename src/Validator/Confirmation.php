@@ -33,6 +33,7 @@ class Confirmation extends Validator
             $validation->appendErrorMessageForValidator(new Error($message, $field));
             return false;
         }
+
         return true;
     }
 }

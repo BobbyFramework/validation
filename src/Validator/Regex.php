@@ -40,6 +40,7 @@ class Regex extends Validator
             //error add Message
             $validation->appendErrorMessageForValidator(new Error($message, $field));
         }
+
         return true;
     }
 }

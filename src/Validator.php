@@ -1,8 +1,6 @@
 <?php
 namespace BobbyFramework\Validation;
 
-use Doctrine\Instantiator\Exception\InvalidArgumentException;
-
 /**
  * Class Validator
  * @package BobbyFramework\Validation

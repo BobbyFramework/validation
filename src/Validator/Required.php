@@ -38,6 +38,7 @@ class Required extends Validator
 
             return false;
         }
+
         return true;
     }
 }
