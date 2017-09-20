@@ -15,22 +15,22 @@ class Validation
     /**
      * @var array
      */
-    private $_validators = [];
+    private $validators = [];
 
     /**
      * @var MessagesErrorCollection|null
      */
-    private $_messagesGroup = null;
+    private $messagesGroup = null;
 
     /**
      * @var array
      */
-    protected $_values = [];
+    protected $values = [];
 
     /**
      * @var ValidationErrorMessages|null
      */
-    protected $_ValidationErrorMessage = null;
+    protected $validationErrorMessage = null;
 
     /**
      * Validation constructor.
@@ -38,8 +38,8 @@ class Validation
      */
     public function __construct(ValidationErrorMessages $errorMessages = null)
     {
-        $this->_ValidationErrorMessage = $errorMessages ?: new ValidationErrorMessages();
-        $this->_messagesGroup = new MessagesErrorCollection();
+        $this->validationErrorMessage = $errorMessages ?: new ValidationErrorMessages();
+        $this->messagesGroup = new MessagesErrorCollection();
     }
 
     /**
@@ -47,7 +47,7 @@ class Validation
      */
     public function getValidators()
     {
-        return $this->_validators;
+        return $this->validators;
     }
 
     /**
@@ -58,9 +58,9 @@ class Validation
     {
         foreach ($validators as $validator) {
             if ($validator instanceof Validator) {
-                $this->_validators[$field][] = $validator;
+                $this->validators[$field][] = $validator;
             } elseif ($validator instanceof Closure) {
-                $this->_validators[$field][] = $validator;
+                $this->validators[$field][] = $validator;
             }
         }
     }
@@ -74,12 +74,13 @@ class Validation
         /**
          * @var Validator $validator
          */
-        $this->_values = $data;
+        $this->values = $data;
 
         $return = true;
 
-        foreach ($this->_validators as $fields => $field) {
+        foreach ($this->validators as $fields => $field) {
             foreach ($field as $key => $validator) {
+            	//echo '<pre>';var_dump($validator);echo '</pre>';
                 if ($validator instanceof Closure) {
                     $execute = call_user_func($validator, $this, $fields);
                     if (!is_bool($execute)) {
@@ -109,7 +110,7 @@ class Validation
      */
     public function appendErrorMessageForValidator(MessagesError $message)
     {
-        $this->_messagesGroup->appendMessage($message);
+        $this->messagesGroup->appendMessage($message);
     }
 
     /**
@@ -117,7 +118,7 @@ class Validation
      */
     public function getErrorMessages()
     {
-        return $this->_messagesGroup;
+        return $this->messagesGroup;
     }
 
     /**
@@ -125,7 +126,7 @@ class Validation
      */
     public function getDefaultErrorMessages()
     {
-        return $this->_ValidationErrorMessage;
+        return $this->validationErrorMessage;
     }
 
     /**
@@ -134,7 +135,7 @@ class Validation
      */
     public function setValue($field, $value)
     {
-        $this->_values[$field] = $value;
+        $this->values[$field] = $value;
     }
 
     /**
@@ -144,6 +145,14 @@ class Validation
      */
     public function getValue($field, $defaultValue = null)
     {
-        return isset($this->_values[$field]) ? $this->_values[$field] : $defaultValue;
+        return isset($this->values[$field]) ? $this->values[$field] : $defaultValue;
     }
+
+	/**
+	 * @return array
+	 */
+    public function getValues()
+	{
+		return $this->values;
+	}
 }

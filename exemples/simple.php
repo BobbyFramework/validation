@@ -1,4 +1,5 @@
 <?php
+
 ini_set('display_errors','on');
 error_reporting(E_ALL);
 
@@ -14,7 +15,7 @@ use BobbyFramework\Validation\Validator\Email;
 
 $data = [
     'name' => 'Steve Jobs',
-    'email' => 'dsdsqd@@gmail.com'
+    'email' => 'dsdsqd1@@gmail.com'
 ];
 
 $validationMessageError = new ValidationErrorMessages([
@@ -26,7 +27,7 @@ $validation = new Validation($validationMessageError);
 
 $validation->setValidators('name', [
         new MaxLength([
-            'maxLength' => 2
+            'maxLength' => 23
         ])
     ]
 );
@@ -40,12 +41,14 @@ $validation->setValidators('email', [
 
 if (true === $validation->isValid($data)) {
     echo 'validation is ok';
+	var_dump($validation->getValues());
 } else {
     echo 'Erreur validation';
 
     if ($validation->getErrorMessages()->getCount() >= 1) {
-   
-        foreach ($validation->getErrorMessages() as $message) {
+
+        foreach ($validation->getErrorMessages()->getAll() as $message) {
+        	/** @var $message \BobbyFramework\Validation\Messages\Error */
             echo '<br/>' . $message->getField() . ' : ' . $message->getMessage();
         }
     }

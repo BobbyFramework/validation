@@ -1,4 +1,5 @@
 <?php
+
 namespace BobbyFramework\Validation\Messages;
 
 /**
@@ -8,14 +9,14 @@ namespace BobbyFramework\Validation\Messages;
 class ErrorCollection implements CollectionInterface
 {
     /**
-     * @var $_messages
+     * @var $messages
      */
-    protected $_messages = [];
+    protected $messages = [];
 
     /**
-     * @var $_position
+     * @var $position
      */
-    private $_position = 0;
+    private $position = 0;
 
     /**
      * ErrorCollection constructor.
@@ -33,7 +34,7 @@ class ErrorCollection implements CollectionInterface
      */
     public function setMessages(array $messages)
     {
-        $this->_messages = $messages;
+        $this->messages = $messages;
     }
 
     /**
@@ -41,7 +42,7 @@ class ErrorCollection implements CollectionInterface
      */
     public function appendMessage(Error $message)
     {
-        $this->_messages[$message->getField()] = $message;
+        $this->messages[$message->getField()] = $message;
     }
 
     /**
@@ -57,7 +58,7 @@ class ErrorCollection implements CollectionInterface
      */
     public function getCount()
     {
-        return count($this->_messages);
+        return count($this->messages);
     }
 
     /**
@@ -65,7 +66,7 @@ class ErrorCollection implements CollectionInterface
      */
     public function getAll()
     {
-        return $this->_messages;
+        return $this->messages;
     }
 
     /**
@@ -75,7 +76,7 @@ class ErrorCollection implements CollectionInterface
      */
     public function set($key, $value)
     {
-        $this->_messages[$key] = $value;
+        $this->messages[$key] = $value;
 
         return $this;
     }
@@ -86,7 +87,7 @@ class ErrorCollection implements CollectionInterface
      */
     public function get($offset, $defaultValue = null)
     {
-        return $this->has($offset) ? $this->_messages[$offset] : $defaultValue;
+        return $this->has($offset) ? $this->messages[$offset] : $defaultValue;
     }
 
     /**
@@ -111,14 +112,14 @@ class ErrorCollection implements CollectionInterface
     */
     public function has($key)
     {
-        return array_key_exists($key, $this->_messages);
+        return array_key_exists($key, $this->messages);
     }
     /**
      *
      */
     public function rewind()
     {
-        $this->_position = 0;
+        $this->position = 0;
     }
 
     /**
@@ -126,7 +127,7 @@ class ErrorCollection implements CollectionInterface
      */
     public function current()
     {
-        return $this->_messages[$this->_position];
+        return $this->messages[$this->position];
     }
 
     /**
@@ -134,7 +135,7 @@ class ErrorCollection implements CollectionInterface
      */
     public function key()
     {
-        return $this->_position;
+        return $this->position;
     }
 
     /**
@@ -142,7 +143,7 @@ class ErrorCollection implements CollectionInterface
      */
     public function next()
     {
-        $this->_position++;
+        $this->position++;
     }
 
     /**
@@ -150,7 +151,7 @@ class ErrorCollection implements CollectionInterface
      */
     public function valid()
     {
-        return isset($this->_messages[$this->_position]);
+        return isset($this->messages[$this->position]);
     }
 
     /**
@@ -158,7 +159,7 @@ class ErrorCollection implements CollectionInterface
      */
     public function reverse()
     {
-        $this->_messages = array_reverse($this->_messages);
+        $this->messages = array_reverse($this->messages);
         $this->rewind();
     }
 
@@ -204,7 +205,7 @@ class ErrorCollection implements CollectionInterface
      */
     public function remove($key)
     {
-        unset($this->_messages[$key]);
+        unset($this->messages[$key]);
     }
 
     /**
@@ -212,7 +213,7 @@ class ErrorCollection implements CollectionInterface
      */
     public function clear()
     {
-        $this->_messages = [];
+        $this->messages = [];
     }
 
     /**
@@ -222,6 +223,6 @@ class ErrorCollection implements CollectionInterface
     */
     public function keys()
     {
-        return array_keys($this->_messages);
+        return array_keys($this->messages);
     }
 }
