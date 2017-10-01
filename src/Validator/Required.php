@@ -26,18 +26,29 @@ class Required extends Validator
     {
         $value = $validation->getValue($field);
 
+		$diff = $this->getOption('noValidValue',false);
+
+		$error = false;
+
+		if (is_array($diff) && in_array($value,$diff)) {
+			$error = true;
+		}
+
         if ($value === null || $value === "") {
-
-            $message = $this->getOption('message');
-
-            if (true === is_null($message)) {
-                $message = $validation->getDefaultErrorMessages()->get('Required');
-            }
-
-            $validation->appendErrorMessageForValidator(new Error($message, $field));
-
-            return false;
+			$error = true;
         }
+
+        if ($error === true) {
+			$message = $this->getOption('message');
+
+			if (true === is_null($message)) {
+				$message = $validation->getDefaultErrorMessages()->get('Required');
+			}
+
+			$validation->appendErrorMessageForValidator(new Error($message, $field));
+
+			return false;
+		}
 
         return true;
     }

@@ -9,27 +9,33 @@ require APP_PATH . '/vendor/autoload.php';
 
 use BobbyFramework\Validation\Validation;
 use BobbyFramework\Validation\ValidationErrorMessages;
-use BobbyFramework\Validation\Validator\MaxLength;
 use BobbyFramework\Validation\Validator\Required;
 use BobbyFramework\Validation\Validator\Email;
 
 $data = [
-    'name' => 'Steve Jobs',
-    'email' => 'dsdsqd1@@gmail.com'
+    'lastname' => 'Jobs',
+	'firstname' => 'steve',
+    'email' => 'dsdsqd1@gmail.com'
 ];
 
 $validationMessageError = new ValidationErrorMessages([
-    'MaxLength' => 'MaxLength Error  ',
     'Required' => 'Veuillez saisir le champs '
 ]);
 
 $validation = new Validation($validationMessageError);
 
-$validation->setValidators('name', [
-        new MaxLength([
-            'maxLength' => 23
-        ])
+$validation->setValidators('lastname', [
+		new Required(),
     ]
+);
+
+$validation->setValidators('firstname', [
+		new Required([
+			'noValidValue' => [
+				'none',
+			]
+		]),
+	]
 );
 
 $validation->setValidators('email', [
@@ -37,7 +43,6 @@ $validation->setValidators('email', [
         new Email()
     ]
 );
-
 
 if (true === $validation->isValid($data)) {
     echo 'validation is ok';
