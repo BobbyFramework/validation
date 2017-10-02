@@ -29,7 +29,7 @@ class Regex extends Validator
 
         $regex = $this->getOption('regex');
 
-        if (preg_match($regex, $value) === false) {
+        if (!preg_match($regex, $value)) {
 
             $message = $this->getOption('message');
 
