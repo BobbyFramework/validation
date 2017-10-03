@@ -31,6 +31,8 @@ class Alpha extends Validator
 
             //error add Message
             $validation->appendErrorMessageForValidator(new Error($message, $field));
+
+			return false;
         }
 
         return true;
