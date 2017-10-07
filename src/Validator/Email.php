@@ -21,7 +21,7 @@ class Email extends Validator
     {
         $value = $validation->getValue($field);
 
-        if (filter_var($value, FILTER_VALIDATE_EMAIL) === false) {
+        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
 
             $message = $this->getOption('message');
 

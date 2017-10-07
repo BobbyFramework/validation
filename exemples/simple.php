@@ -16,6 +16,7 @@ $data = [
     'lastname' => 'Jobs',
 	'firstname' => 'steve',
     'email' => 'dsdsqd1@gmail.com'
+
 ];
 
 $validationMessageError = new ValidationErrorMessages([
@@ -24,29 +25,31 @@ $validationMessageError = new ValidationErrorMessages([
 
 $validation = new Validation($validationMessageError);
 
-$validation->setValidators('lastname', [
-		new Required(),
-    ]
-);
+	$validation->setValidators('lastname', [
+			new Required(),
+		]
+	);
 
-$validation->setValidators('firstname', [
-		new Required([
-			'noValidValue' => [
-				'none',
-			]
-		]),
-	]
-);
+	$validation->setValidators('firstname', [
+			new Required([
+				'noValidValue' => [
+					'none',
+				]
+			]),
+		]
+	);
 
 $validation->setValidators('email', [
         new Required(),
-        new Email()
+        new Email([
+        	'allowEmpty' => true
+		])
     ]
 );
 
 if (true === $validation->isValid($data)) {
     echo 'validation is ok';
-	var_dump($validation->getValues());
+	dump($validation->getValues());
 } else {
     echo 'Erreur validation';
 
